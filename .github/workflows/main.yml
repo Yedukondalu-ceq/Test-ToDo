@@ -1,70 +1,119 @@
-name: To-Do Pipeline
-on:
-  push
+# name: To-Do Pipeline
+# on:
+#   push
 
-jobs:
-  Snyk:
-    runs-on: ubuntu-latest
+# jobs:
+#   Snyk:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@master
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@master
 
-      - name: Run Snyk on backend
-        uses: snyk/actions/node@master
-        continue-on-error: true
-        with:
-          args: --file=./backend/package.json  # Specify the path to the backend package.json
-          command: monitor
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+#       - name: Run Snyk on backend
+#         uses: snyk/actions/node@master
+#         continue-on-error: true
+#         with:
+#           args: --file=./backend/package.json  # Specify the path to the backend package.json
+#           command: monitor
+#         env:
+#           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      - name: Run Snyk on frontend
-        uses: snyk/actions/node@master
-        continue-on-error: true
-        with:
-          args: --file=./frontend/package.json  # Specify the path to the frontend package.json
-          command: monitor
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+#       - name: Run Snyk on frontend
+#         uses: snyk/actions/node@master
+#         continue-on-error: true
+#         with:
+#           args: --file=./frontend/package.json  # Specify the path to the frontend package.json
+#           command: monitor
+#         env:
+#           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-  SonarQube:
-    runs-on: ubuntu-latest
-    needs: ["Snyk"]
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      # If you wish to fail your job when the Quality Gate is red, uncomment the
-      # following lines. This would typically be used to fail a deployment.
-      # - uses: sonarsource/sonarqube-quality-gate-action@master
-      #   timeout-minutes: 5
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#   SonarQube:
+#     runs-on: ubuntu-latest
+#     needs: ["Snyk"]
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+#       - uses: sonarsource/sonarqube-scan-action@master
+#         env:
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+#       # If you wish to fail your job when the Quality Gate is red, uncomment the
+#       # following lines. This would typically be used to fail a deployment.
+#       # - uses: sonarsource/sonarqube-quality-gate-action@master
+#       #   timeout-minutes: 5
+#       #   env:
+#       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  Build:
-    runs-on: ubuntu-latest
-    needs: ["SonarQube"]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+#   Build:
+#     runs-on: ubuntu-latest
+#     needs: ["SonarQube"]
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/*.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
+#       - name: Cache node modules
+#         uses: actions/cache@v2
+#         with:
+#           path: |
+#             node_modules
+#           key: ${{ runner.os }}-npm-${{ hashFiles('**/*.json') }}
+#           restore-keys: |
+#             ${{ runner.os }}-npm-
         
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - name: Build with npm
-        run: npm install
+#       - name: Install Node.js and npm
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: '14'
+#       - name: Build with npm
+#         run: npm install
+
+name: Power_Pipeline
+
+on:
+  push:
+
+jobs: 
+ Docker_Image:
+    runs-on: ubuntu-latest
+    #needs: ["JFrog"]
+    steps:    
+        - name: Checkout code
+          uses: actions/checkout@master
+
+        - name: Set up AWS CLI
+          run: |
+           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+           aws configure set region ${{ secrets.AWS_DEFAULT_REGION }}
+          env:
+           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+          
+        - name: check files
+          run: |
+               docker-compose --version
+               ls -l
+               # aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 637423247927.dkr.ecr.ap-south-1.amazonaws.com
+               # docker --version
+               # docker build -t powerpipeline .
+               # docker tag powerpipeline:latest  609695713455.dkr.ecr.ap-southeast-1.amazonaws.com/powerpipeline:latest
+          
+               # # push the image into aws ecr
+
+               # docker push 637423247927.dkr.ecr.ap-south-1.amazonaws.com/powerpipeline:latest
+               aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 637423247927.dkr.ecr.ap-south-1.amazonaws.com
+
+               docker-compose build
+
+               docker tag frontend:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+               
+               docker tag backend:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+               
+               docker tag mongodb-1:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/mongodb-1:latest
+
+
+
