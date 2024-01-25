@@ -113,7 +113,12 @@ jobs:
                
                docker tag backend:v2 637423247927.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
                
-               docker tag mongodb:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/mongodb-1:latest
+               docker tag mongo:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/mongodb-1:latest
+
+               docker push 637423247927.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+               docker push 637423247927.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+               docker push 637423247927.dkr.ecr.ap-south-1.amazonaws.com/mongodb-1:latest
+
 
 
 
