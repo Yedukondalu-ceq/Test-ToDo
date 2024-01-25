@@ -31,7 +31,7 @@ services:
       - '27017:27017' 
     networks:
       - todo-app
-    volumes:
+  #  volumes:
       - mongodb_data:/data/db 
 
 
