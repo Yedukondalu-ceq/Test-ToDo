@@ -109,9 +109,9 @@ jobs:
 
                docker-compose build
 
-               docker tag frontend:v2 637423247927.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+               docker tag frontend:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
                
-               docker tag backend:v2 637423247927.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+               docker tag backend:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
                
                docker tag mongo:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/mongodb-1:latest
 
