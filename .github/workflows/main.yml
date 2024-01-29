@@ -98,29 +98,21 @@ jobs:
           run: |
                docker-compose --version
                ls -l
-               # aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 637423247927.dkr.ecr.ap-south-1.amazonaws.com
-               # docker --version
-               # docker build -t powerpipeline .
-               # docker tag powerpipeline:latest  609695713455.dkr.ecr.ap-southeast-1.amazonaws.com/powerpipeline:latest
-          
-               # # push the image into aws ecr
-
-               # docker push 637423247927.dkr.ecr.ap-south-1.amazonaws.com/powerpipeline:latest
-               aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 637423247927.dkr.ecr.ap-south-1.amazonaws.com
-
+               aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 549923379215.dkr.ecr.ap-south-1.amazonaws.com      
                docker-compose build
 
-               docker tag frontend:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+               docker tag frontend:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
                
-               docker tag backend:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
-               
-               # docker tag mongo:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest
-               docker tag mongo:latest 637423247927.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest
+               docker tag backend:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
 
-               docker push 637423247927.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
-               docker push 637423247927.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
-               # docker push 637423247927.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest
-               docker push 637423247927.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest
+               docker tag mongo:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/mongoend:latest
+
+               docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+               
+               docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+               
+               docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest
+               
 
 
 
