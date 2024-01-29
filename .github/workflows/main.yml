@@ -99,7 +99,7 @@ jobs:
                docker-compose --version
                ls -l
                aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 549923379215.dkr.ecr.ap-south-1.amazonaws.com      
-               docker-compose build -d
+               docker-compose build 
 
                docker tag frontend:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
                
