@@ -26,17 +26,22 @@ services:
       - mongodb
 
   mongodb:
-    image: mongo:latest
+    image: mongo
+    container_name: my_mongodb
     ports:
-      - '27017:27017' 
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: examplepassword
+
     networks:
       - todo-app
-  #  volumes:
+    volumes:
       - mongodb_data:/data/db 
 
 
-#volumes:
-#  mongodb_data: 
+volumes:
+  mongodb_data: 
 
 networks:
   todo-app:
