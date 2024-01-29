@@ -102,17 +102,17 @@ jobs:
                docker-compose build 
                docker images
 
-               docker tag frontend:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+              #  docker tag frontend:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
                
-               docker tag backend:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+              #  docker tag backend:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
 
                
-               docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+              #  docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
                
-               docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+              #  docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
 
-               docker tag mongo:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest 
-               docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest
+              #  docker tag mongo:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest 
+              #  docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest
                              
 
 
