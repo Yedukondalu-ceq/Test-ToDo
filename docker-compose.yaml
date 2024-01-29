@@ -37,19 +37,19 @@ services:
 
   mongo:
     image: "mongo:latest"
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: examplepassword
+    # restart: always
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: examplepassword
 
     networks:
       - todo-app
-    volumes:
-      - mongodb_data:/data/db 
+  #  volumes:
+    #   - mongodb_data:/data/db 
 
 
-volumes:
-  mongodb_data: 
+# volumes:
+#   mongodb_data: 
 
 networks:
   todo-app:
