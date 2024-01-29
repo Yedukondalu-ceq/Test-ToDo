@@ -35,19 +35,19 @@ services:
   #     MONGO_INITDB_ROOT_PASSWORD: examplepassword
 
 
-  # mongodb:
-  #   image: mongo:latest
-  #   container_name: mongodb
-  #   restart: unless-stopped
-  #   environment:
-  #      MONGO_INITDB_ROOT_USERNAME: root
-  #      MONGO_INITDB_ROOT_PASSWORD: examplepassword
-  #   ports:
-  #    - 27017:27017
-  #   networks:
-  #     - todo-app
-  #   volumes:
-  #      - mongodb_data:/data/db 
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+       MONGO_INITDB_ROOT_USERNAME: root
+       MONGO_INITDB_ROOT_PASSWORD: examplepassword
+    ports:
+     - 27017:27017
+    networks:
+      - todo-app
+    volumes:
+       - mongodb_data:/data/db 
 
 
 volumes:
