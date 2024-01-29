@@ -36,14 +36,15 @@ services:
 
 
   mongodb:
-    image: mongo
-    container_name: mongodb
-    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
-       MONGO_INITDB_ROOT_USERNAME: root
-       MONGO_INITDB_ROOT_PASSWORD: examplepassword
+      MONGO_INITDB_ROOT_USERNAME: your_username
+      MONGO_INITDB_ROOT_PASSWORD: your_password
     ports:
-     - 27017:27017
+      - "27017:27017"
+
     networks:
       - todo-app
     volumes:
