@@ -23,7 +23,7 @@ services:
     networks:
       - todo-app
     depends_on:
-      - mongo
+      - mongodb
 
   # mongodb:
   #   image: mongo
@@ -35,21 +35,23 @@ services:
   #     MONGO_INITDB_ROOT_PASSWORD: examplepassword
 
 
-  mongo:
-    image: mongo
-    # restart: always
-    # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: root
-    #   MONGO_INITDB_ROOT_PASSWORD: examplepassword
+  # mongodb:
+  #   image: mongo:latest
+  #   container_name: mongodb
+  #   restart: unless-stopped
+  #   environment:
+  #      MONGO_INITDB_ROOT_USERNAME: root
+  #      MONGO_INITDB_ROOT_PASSWORD: examplepassword
+  #   ports:
+  #    - 27017:27017
+  #   networks:
+  #     - todo-app
+  #   volumes:
+  #      - mongodb_data:/data/db 
 
-    networks:
-      - todo-app
-  #  volumes:
-    #   - mongodb_data:/data/db 
 
-
-# volumes:
-#   mongodb_data: 
+volumes:
+   mongodb_data: 
 
 networks:
   todo-app:
