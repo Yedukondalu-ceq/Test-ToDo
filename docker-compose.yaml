@@ -23,7 +23,7 @@ services:
     networks:
       - todo-app
     depends_on:
-      - mongodb
+      - mongo
 
   # mongodb:
   #   image: mongo
