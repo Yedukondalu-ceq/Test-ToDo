@@ -25,11 +25,19 @@ services:
     depends_on:
       - mongodb
 
-  mongodb:
+  # mongodb:
+  #   image: mongo
+  #   container_name: my_mongodb
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: examplepassword
+
+
+  mongo:
     image: mongo
-    container_name: my_mongodb
-    ports:
-      - "27017:27017"
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: examplepassword
