@@ -98,21 +98,23 @@ jobs:
           run: |
                docker-compose --version
                ls -l
-               aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 549923379215.dkr.ecr.ap-south-1.amazonaws.com      
-               docker-compose build 
+               aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b6j7n2e6
+
+               docker-compose build
+
                docker images
 
-               docker tag frontend:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+               docker tag frontend:latest public.ecr.aws/b6j7n2e6/power_pipeline_frontend:latest
                
-               docker tag backend:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+               docker tag backend:latest public.ecr.aws/b6j7n2e6/power_pipeline_backend:latest
 
                
-               docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+               docker push public.ecr.aws/b6j7n2e6/power_pipeline_frontend:latest
                
-               docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+               docker push public.ecr.aws/b6j7n2e6/power_pipeline_backend:latest
 
-               docker tag test-todo_mongodb:latest 549923379215.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest 
-               docker push 549923379215.dkr.ecr.ap-south-1.amazonaws.com/mongo:latest
+               docker tag test-todo_mongodb:latest  public.ecr.aws/b6j7n2e6/power_pipeline_123:latest 
+               docker push public.ecr.aws/b6j7n2e6/power_pipeline_123:latest
                              
 
 
